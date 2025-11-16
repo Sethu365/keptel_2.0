@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* --- Brand tokens (single source of truth) --- */
+:root {
+  --keptel: #D63A1E;       /* primary brand color */
+  --keptel-dark: #b92d14;  /* hover/darker */
+  --keptel-light: #FFD6CD; /* subtle tint for accents if needed */
+  --text-default: #111827;
+  --muted: #6b7280;
+}
+
+/* --- Base layer (keeps your existing Tailwind base rules + brand additions) --- */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-sans antialiased;
+    color: var(--text-default);
+    background-color: #ffffff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold;
+    line-height: 1.2;
+  }
+
+  p {
+    line-height: 1.6;
+  }
+
+  /* Small accessible focus ring tuned to brand */
+  :focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(214, 58, 30, 0.12);
+    border-radius: 6px;
+  }
+}
+
+/* --- Utilities (kept from your file, plus brand helpers) --- */
+@layer utilities {
+  .shadow-premium {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+
+  /* Nav link utility: white text with brand underline animation */
+  .nav-link {
+    color: white; /* used on transparent header */
+    position: relative;
+    font-weight: 500;
+    padding-bottom: 6px;
+    background: transparent;
+    border: none;
+  }
+  .nav-link .nav-underline {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 0;
+    background: var(--keptel);
+    transition: width .25s ease;
+  }
+  .nav-link:hover .nav-underline,
+  .nav-link.active .nav-underline {
+    width: 100%;
+  }
+
+  /* Outline brand button used on transparent header */
+  .btn-outline-brand {
+    border: 1px solid var(--keptel);
+    color: white;
+    background: transparent;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    transition: background .18s ease, color .18s ease, border-color .18s ease;
+  }
+  .btn-outline-brand:hover {
+    background: var(--keptel);
+    color: white;
+    border-color: var(--keptel-dark);
+  }
+
+  /* Small helper for inline brand text */
+  .text-brand { color: var(--keptel); }
+  .bg-brand { background-color: var(--keptel); }
+  .bg-brand-dark { background-color: var(--keptel-dark); }
+}
+
+/* --- loader keyframes (keep as-is) --- */
+@keyframes loader {
+  0%   { transform: translateX(-120%); }
+  50%  { transform: translateX(10%); }
+  100% { transform: translateX(120%); }
+}
+
+/* Respect reduced motion – make the bar static */
+@media (prefers-reduced-motion: reduce) {
+  .animate-\[loader_1\.2s_ease-in-out_infinite\] {
+    animation: none !important;
+    width: 60% !important;
+    transform: translateX(0) !important;
+  }
+}
