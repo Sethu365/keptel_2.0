@@ -108,3 +108,21 @@
     transform: translateX(0) !important;
   }
 }
+
+/* Dropdown Styling */
+.nav-dropdown {
+  background: white;
+  color: var(--text-default);
+  border: 1px solid #e5e7eb;
+}
+
+.nav-dropdown-item {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.nav-dropdown-item:hover {
+  background: var(--keptel-light);
+  color: var(--keptel);
+}
