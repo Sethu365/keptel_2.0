@@ -2,78 +2,60 @@ import { motion } from "framer-motion";
 import Hero from "../components/Hero";
 import Section from "../components/Section";
 import Card from "../components/Card";
-import Stats from "../components/Stats";
-import Testimonial from "../components/Testimonial";
-import ImageFeature from "../components/ImageFeature";
-import ClientLogos from "../components/ClientLogos";
 import Button from "../components/Button";
-import { Zap, Shield, TrendingUp, Users, CheckCircle, Target } from "lucide-react";
+import { Zap, Shield, TrendingUp } from "lucide-react";
 
 interface HomeProps {
   onNavigate: (page: string) => void;
 }
 
 export default function Home({ onNavigate }: HomeProps) {
-  // --- Motion helpers ---
+  const brand = "#D63A1E";
+
+  // Simple motion presets
   const container = {
     hidden: { opacity: 0, y: 8 },
     show: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.65, ease: [0.25, 1, 0.5, 1], staggerChildren: 0.08 },
+      transition: {
+        duration: 0.6,
+        ease: [0.25, 1, 0.5, 1],
+        staggerChildren: 0.08,
+      },
     },
   };
+
   const item = {
-    hidden: { opacity: 0, y: 12 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.25, 1, 0.5, 1] } },
+    hidden: { opacity: 0, y: 10 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.55, ease: [0.25, 1, 0.5, 1] },
+    },
   };
 
-  const stats = [
-    { value: "500+", label: "Global Clients" },
-    { value: "98%", label: "Client Satisfaction" },
-    { value: "50+", label: "Countries Served" },
-    { value: "25+", label: "Years Experience" },
-  ];
-
-  const services = [
+  const pillars = [
     {
-      icon: Zap,
-      title: "Digital Transformation",
-      description:
-        "Accelerate your business evolution with cutting-edge digital solutions and strategic technology integration.",
+      id: "01",
+      title: "Product & Platform Engineering",
+      copy: "Keptel designs and builds stable, scalable digital products with clear architecture, managed risks, and predictable release paths.",
     },
     {
-      icon: Shield,
-      title: "Cybersecurity",
-      description:
-        "Protect your enterprise with comprehensive security frameworks and advanced threat protection systems.",
+      id: "02",
+      title: "Technology & Operations Enablement",
+      copy: "We modernise applications and workflows so IT and operations teams can run business-critical processes with confidence and control.",
     },
     {
-      icon: TrendingUp,
-      title: "Business Analytics",
-      description:
-        "Transform data into actionable insights with our advanced analytics and business intelligence platforms.",
+      id: "03",
+      title: "Specialised Delivery Pods",
+      copy: "Senior, cross-functional pods from Keptel integrate into your organisation and share accountability for outcomes—not just deliverables.",
     },
-    {
-      icon: Users,
-      title: "Consulting Services",
-      description:
-        "Strategic advisory services to optimize operations and drive sustainable business growth.",
-    },
-  ];
-
-  const clientLogos = [
-    { name: "AWS", image: "../assets/clients/aws.svg" },
-    { name: "Microsoft", image: "../assets/clients/microsoft.svg" },
-    { name: "Google Cloud", image: "../assets/clients/google-cloud.svg" },
-    { name: "IBM", image: "../assets/clients/ibm.svg" },
-    { name: "Cisco", image: "../assets/clients/cisco.svg" },
-    { name: "Accenture", image: "../assets/clients/accenture.svg" },
   ];
 
   return (
     <div className="bg-slate-50">
-      {/* --- HERO --- */}
+      {/* ============================ HERO (UNCHANGED) ============================ */}
       <Hero
         title="Transform Your Enterprise for the Digital Age"
         subtitle="We partner with global leaders to drive innovation, accelerate growth, and create sustainable competitive advantages through technology and strategic insight."
@@ -82,181 +64,251 @@ export default function Home({ onNavigate }: HomeProps) {
         onPrimaryClick={() => onNavigate("contact")}
         onSecondaryClick={() => onNavigate("services")}
         backgroundImage="https://images.pexels.com/photos/380769/pexels-photo-380769.jpeg?auto=compress&cs=tinysrgb&w=1920"
-        backgroundVideoSrc="/assets/Video.mp4"
+        backgroundVideoSrc="../public/assets/Video.mp4"
         backgroundVideoPoster="https://images.pexels.com/photos/380769/pexels-photo-380769.jpeg?auto=compress&cs=tinysrgb&w=1920"
         videoOnMobile={true}
       />
 
-      {/* --- STATS --- */}
-      <Section background="white">
-        <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
-          <Stats stats={stats} />
-        </motion.div>
-      </Section>
-
-      {/* --- CLIENT LOGOS --- */}
-      <Section
-        id="clients"
-        background="gray"
-        eyebrow="Trusted By Industry Leaders"
-        title="Partnering with the World's Most Innovative Companies"
+      {/* ===== FONT SCALE WRAPPER (applies to everything below, NOT hero) ===== */}
+      <div
+        className="
+          [&_h2]:text-[28px] md:[&_h2]:text-[34px]
+          [&_h3]:text-[20px]
+          [&_p]:text-[16px] md:[&_p]:text-[17px]
+          [&_li]:text-[15px] md:[&_li]:text-[16px]
+          [&_span]:text-[14px]
+        "
       >
-        <ClientLogos logos={clientLogos} />
-      </Section>
+        {/* ===================== 1. WHAT WE DO AT A GLANCE ===================== */}
+        <Section background="white">
+          <div className="max-w-4xl mx-auto mb-8 text-center">
+            <p className="text-[15px] tracking-[0.22em] font-semibold uppercase text-[#D63A1E]/80">
+              What We Do
+            </p>
 
-      {/* --- SERVICES --- */}
-      <Section
-        id="services"
-        eyebrow="Our Services"
-        title="Comprehensive Solutions for Modern Enterprises"
-        subtitle="We deliver end-to-end solutions designed to transform your business and accelerate growth."
-      >
-        <motion.div
-          className="grid md:grid-cols-2 gap-8"
-          variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.2 }}
-        >
-          {services.map((service) => {
-            const Icon = service.icon;
-            return (
-              <motion.div key={service.title} variants={item}>
-                <Card className="bg-white border border-slate-100 shadow-sm hover:shadow-md transition">
-                  <div className="w-14 h-14 bg-slate-100 rounded-2xl flex items-center justify-center mb-6">
-                    <Icon className="w-7 h-7 text-[#D63A1E]" aria-hidden="true" />
+            <h2 className="mt-2 font-semibold tracking-tight text-slate-900">
+              Technology, delivery, and teams aligned to your context
+            </h2>
+            <p className="mt-3 text-slate-600 leading-relaxed">
+              Keptel works with enterprises and high-growth organisations to design, build, and
+              operate digital solutions that support day-to-day business instead of disrupting it.
+            </p>
+          </div>
+
+          <motion.div
+            className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto"
+            variants={container}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            {pillars.map((p) => (
+              <motion.div key={p.id} variants={item}>
+                <Card className="h-full bg-white border border-slate-200/70 shadow-sm hover:shadow-md hover:border-slate-300 transition">
+                  <div className="flex items-center gap-3 mb-3">
+                    <span
+                      className="font-semibold tracking-[0.22em] uppercase"
+                      style={{ color: brand }}
+                    >
+                      {p.id}
+                    </span>
+                    <h3 className="font-semibold text-slate-900 tracking-tight">
+                      {p.title}
+                    </h3>
                   </div>
-                  <h3 className="text-2xl font-semibold text-slate-900 mb-3 tracking-tight">
-                    {service.title}
-                  </h3>
-                  <p className="text-slate-600 leading-relaxed">{service.description}</p>
+                  <p className="text-slate-600 leading-relaxed">{p.copy}</p>
                 </Card>
               </motion.div>
-            );
-          })}
-        </motion.div>
+            ))}
+          </motion.div>
+        </Section>
 
-        <div className="text-center mt-12">
-          <Button
-            variant="primary"
-            size="lg"
-            icon
-            onClick={() => onNavigate("services")}
-            className="bg-[#D63A1E] hover:bg-[#B72B12] text-white rounded-xl"
-          >
-            View All Services
-          </Button>
-        </div>
-      </Section>
-
-      {/* --- IMAGE FEATURE 1 --- */}
-      <Section background="white">
-        <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
-          <ImageFeature
-            image="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=1200"
-            imagePosition="left"
-            eyebrow="Innovation First"
-            title="Driving Digital Excellence Through Technology"
-            description="We combine deep industry expertise with cutting-edge technology to deliver solutions that transform businesses and create lasting value."
-            features={[
-              { icon: CheckCircle, text: "Strategic planning and roadmap development" },
-              { icon: CheckCircle, text: "Enterprise architecture and system integration" },
-              { icon: CheckCircle, text: "Change management and organizational transformation" },
-            ]}
-          />
-        </motion.div>
-      </Section>
-
-      {/* --- IMAGE FEATURE 2 --- */}
-      <Section background="gray">
-        <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }}>
-          <ImageFeature
-            image="https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=1200"
-            imagePosition="right"
-            eyebrow="Results Driven"
-            title="Measurable Impact for Your Business"
-            description="Our proven methodologies and industry-leading practices ensure tangible results that drive growth and operational excellence."
-            features={[
-              { icon: Target, text: "Measurable ROI and business value realization" },
-              { icon: Target, text: "Scalable solutions built for enterprise growth" },
-              { icon: Target, text: "Continuous optimization and performance improvement" },
-            ]}
-          />
-        </motion.div>
-      </Section>
-
-      {/* --- TESTIMONIALS --- */}
-      <Section
-        background="white"
-        eyebrow="Client Success"
-        title="What Our Partners Say"
-        subtitle="Hear from industry leaders who have transformed their businesses with our solutions."
-      >
-        <motion.div
-          className="grid md:grid-cols-2 gap-8"
-          variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.2 }}
+        {/* ===================== 2. ABOUT KEPTEL ===================== */}
+        <Section
+          background="gray"
+          eyebrow="About Keptel"
+          title="A focused partner for complex technology environments"
+          subtitle="We are structured to work alongside internal product, IT, and operations teams rather than replace them."
         >
-          <motion.div variants={item}>
-            <Testimonial
-              quote="Keptel Analytics Space transformed our entire digital infrastructure. Their expertise and strategic approach delivered results beyond our expectations."
-              author="Sarah Johnson"
-              role="CTO"
-              company="TechCorp Global"
-            />
+          <div className="grid md:grid-cols-2 gap-10 items-start max-w-5xl mx-auto">
+            <div className="space-y-4 text-slate-700 leading-relaxed">
+              <p>
+                Keptel is built around compact, senior-leaning teams that can engage at different
+                stages of your technology journey—from shaping new initiatives to stabilising and
+                scaling existing platforms.
+              </p>
+              <p>
+                Our approach is measured and practical. We prioritise clarity of scope, alignment on
+                constraints, and realistic planning so that delivery remains predictable and
+                maintainable over time.
+              </p>
+            </div>
+            <div className="space-y-3 text-slate-700 leading-relaxed">
+              <p>
+                We are comfortable working within established enterprise processes and standards:
+                change management, approvals, risk frameworks, and existing vendor ecosystems.
+                Keptel’s role is to add structure and capacity without adding noise.
+              </p>
+              <ul className="mt-2 space-y-1 text-slate-700 list-disc ml-5">
+                <li>Aligned with your technology and governance standards</li>
+                <li>Clear ownership and defined engagement boundaries</li>
+                <li>Focus on systems that support business-critical operations</li>
+              </ul>
+              <div className="flex flex-wrap gap-3 pt-4">
+                <Button variant="primary" size="lg" onClick={() => onNavigate("why-keptel")}>
+                  Why Keptel
+                </Button>
+                <Button variant="outline" size="lg" onClick={() => onNavigate("about")}>
+                  Learn more
+                </Button>
+              </div>
+            </div>
+          </div>
+        </Section>
+
+        {/* ===================== 3. CORE AREAS WE SUPPORT ===================== */}
+        <Section
+          background="white"
+          eyebrow="Service Lines"
+          title="Core areas we support"
+          subtitle="A connected set of capabilities spanning applications, platforms, and enterprise workflows."
+        >
+          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mt-8">
+            <Card className="p-6 border border-slate-200/70 shadow-sm rounded-xl hover:shadow-md hover:border-slate-300 transition">
+              <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100">
+                <Zap className="w-5 h-5" style={{ color: brand }} />
+              </div>
+              <h3 className="font-semibold mb-2">Application Modernisation</h3>
+              <p className="text-slate-600 leading-relaxed">
+                Redesign and refactor legacy systems for reliability, scalability, and more efficient
+                release cycles—without losing the business logic that already works.
+              </p>
+            </Card>
+
+            <Card className="p-6 border border-slate-200/70 shadow-sm rounded-xl hover:shadow-md hover:border-slate-300 transition">
+              <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100">
+                <Shield className="w-5 h-5" style={{ color: brand }} />
+              </div>
+              <h3 className="font-semibold mb-2">Cloud & Platform Engineering</h3>
+              <p className="text-slate-600 leading-relaxed">
+                Build and evolve cloud, hybrid, and on-prem platforms with strong foundations for
+                security, observability, and long-term maintainability.
+              </p>
+            </Card>
+
+            <Card className="p-6 border border-slate-200/70 shadow-sm rounded-xl hover:shadow-md hover:border-slate-300 transition">
+              <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100">
+                <TrendingUp className="w-5 h-5" style={{ color: brand }} />
+              </div>
+              <h3 className="font-semibold mb-2">Enterprise Integrations & Data</h3>
+              <p className="text-slate-600 leading-relaxed">
+                Connect systems, streamline workflows, and create data flows that support accurate
+                reporting and decision-making across Keptel-enabled environments.
+              </p>
+            </Card>
+          </div>
+
+          <div className="text-center mt-12">
+            <Button
+              variant="primary"
+              size="lg"
+              className="rounded-xl px-8 py-3"
+              onClick={() => onNavigate("services")}
+            >
+              View detailed services
+            </Button>
+          </div>
+        </Section>
+
+        {/* ===================== 4. INDUSTRY EXPERIENCE ===================== */}
+        <Section
+          background="gray"
+          eyebrow="Industries"
+          title="Experience across regulated and operations-heavy environments"
+          subtitle="Our methods are consistent, but every Keptel engagement is tuned to sector-specific requirements and constraints."
+        >
+          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mt-8">
+            <Card className="p-6 border border-slate-200/70 shadow-sm rounded-xl bg-white hover:shadow-md hover:border-slate-300 transition">
+              <h3 className="font-semibold mb-2">Financial Services</h3>
+              <p className="text-slate-600 leading-relaxed">
+                Digital workflows for onboarding, compliance, lending operations, and risk
+                teams—bringing consistency, traceability, and strong process discipline.
+              </p>
+            </Card>
+
+            <Card className="p-6 border border-slate-200/70 shadow-sm rounded-xl bg-white hover:shadow-md hover:border-slate-300 transition">
+              <h3 className="font-semibold mb-2">Healthcare & Wellness</h3>
+              <p className="text-slate-600 leading-relaxed">
+                Support for clinics, care networks, and operational teams that require structured
+                coordination, dependable systems, and fast, accurate workflows.
+              </p>
+            </Card>
+
+            <Card className="p-6 border border-slate-200/70 shadow-sm rounded-xl bg-white hover:shadow-md hover:border-slate-300 transition">
+              <h3 className="font-semibold mb-2">Operations & Service Organisations</h3>
+              <p className="text-slate-600 leading-relaxed">
+                Keptel strengthens mobility operations, logistics-driven environments, and
+                multi-location service teams that depend on real-time visibility, clear ownership,
+                and structured coordination across the day-to-day.
+              </p>
+            </Card>
+          </div>
+
+          <div className="text-center mt-12">
+            <Button
+              variant="outline"
+              size="lg"
+              className="rounded-xl border-[#D63A1E] text-[#D63A1E] hover:bg-[#D63A1E] hover:text-white px-8 py-3"
+              onClick={() => onNavigate("industries")}
+            >
+              View industry detail
+            </Button>
+          </div>
+        </Section>
+
+        {/* ===================== 5. FINAL CTA ===================== */}
+        <Section className="text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="bg-[#0f172a] rounded-2xl md:rounded-3xl p-12 md:p-16 text-white shadow-xl border border-slate-700/70 max-w-5xl mx-auto"
+          >
+            <p className="text-xs font-semibold tracking-[0.2em] uppercase text-slate-400 mb-3">
+              Next Steps
+            </p>
+            <h2 className="font-semibold tracking-tight mb-5">
+              Discuss how Keptel can support your initiatives
+            </h2>
+
+            <p className="mb-9 text-slate-300 max-w-2xl mx-auto leading-relaxed">
+              Whether you are planning a new digital initiative, modernising existing platforms, or
+              looking for specialised delivery capacity, Keptel can walk through your context and
+              outline a practical way to engage.
+            </p>
+
+            <div className="flex flex-wrap gap-4 justify-center">
+              <Button
+                variant="primary"
+                size="lg"
+                onClick={() => onNavigate("contact")}
+                className="px-8"
+              >
+                Connect with our team
+              </Button>
+
+              <Button
+                variant="outline"
+                size="lg"
+                onClick={() => onNavigate("why-keptel")}
+                className="px-8"
+              >
+                Learn how we engage
+              </Button>
+            </div>
           </motion.div>
-          <motion.div variants={item}>
-            <Testimonial
-              quote="Working with Keptel Analytics Space was a game-changer. Their team's dedication and innovative solutions helped us achieve a 40% increase in operational efficiency."
-              author="Michael Chen"
-              role="VP of Operations"
-              company="Innovation Systems"
-            />
-          </motion.div>
-        </motion.div>
-      </Section>
-
-      {/* --- FINAL CTA --- */}
-      {/* FINAL CTA — brighter, higher-contrast corporate style */}
-<Section className="text-center">
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    className="bg-[#111827] rounded-3xl p-16 text-white shadow-xl border border-slate-700/60"
-  >
-    <h2 className="text-4xl md:text-5xl font-semibold tracking-tight mb-6 text-white">
-      Ready to Transform Your Business?
-    </h2>
-    <p className="text-lg md:text-xl mb-10 text-slate-300 max-w-2xl mx-auto leading-relaxed">
-      Let’s discuss how we can help you achieve your strategic objectives and drive sustainable growth.
-    </p>
-
-    <div className="flex flex-wrap gap-5 justify-center">
-      <Button
-        variant="primary"
-        size="lg"
-        icon
-        onClick={() => onNavigate("contact")}
-        className="bg-brand hover:bg-brand-600 text-white px-8 py-4 text-lg rounded-xl shadow-md hover:shadow-lg transition-all"
-      >
-        Schedule a Consultation
-      </Button>
-
-      <Button
-        variant="outline"
-        size="lg"
-        onClick={() => onNavigate("services")}
-        className="border-slate-400 text-white hover:bg-white hover:text-slate-900 px-8 py-4 text-lg rounded-xl transition-all"
-      >
-        Explore Services
-      </Button>
-    </div>
-  </motion.div>
-</Section>
-
+        </Section>
+      </div>
     </div>
   );
 }

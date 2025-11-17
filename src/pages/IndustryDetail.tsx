@@ -289,71 +289,74 @@ const INDUSTRY_DATA: any = {
       },
     ],
   },
+
   banking: {
-  title: "Banking & Financial Services",
-  heroImage:
-    "https://images.pexels.com/photos/210607/pexels-photo-210607.jpeg?auto=compress&cs=tinysrgb&w=1920",
-  summary:
-    "Secure, compliant digital workflows that support customer onboarding, operations, risk, and reporting across banking and financial services.",
+    title: "Banking & Financial Services",
+    heroImage:
+      "https://images.pexels.com/photos/210607/pexels-photo-210607.jpeg?auto=compress&cs=tinysrgb&w=1920",
+    summary:
+      "Secure, compliant digital workflows that support customer onboarding, operations, risk, and reporting across banking and financial services.",
 
-  sections: [
-    {
-      heading: "Industry Landscape",
-      content:
-        "Banks, NBFCs, and financial institutions operate in environments where trust, compliance, and operational discipline are non-negotiable. At the same time, customers expect fast, digital-first experiences across onboarding, servicing, and self-service. Bridging regulatory rigor with modern expectations requires strong digital foundations that are reliable, secure, and audit-ready."
+    sections: [
+      {
+        heading: "Industry Landscape",
+        content:
+          "Banks, NBFCs, and financial institutions operate in environments where trust, compliance, and operational discipline are non-negotiable. At the same time, customers expect fast, digital-first experiences across onboarding, servicing, and self-service. Bridging regulatory rigor with modern expectations requires strong digital foundations that are reliable, secure, and audit-ready.",
+      },
+      {
+        heading: "Operational Demands",
+        content:
+          "Financial operations—including KYC, onboarding, credit checks, underwriting, servicing, and compliance reviews—span multiple systems and teams. When workflows depend on manual tasks or disconnected tools, turnaround time increases, visibility decreases, and risk exposure rises. We build structured digital ecosystems that streamline these operations end-to-end.",
+      },
+    ],
+
+    card1: {
+      title: "Onboarding & Servicing Journeys",
+      desc:
+        "Account opening, KYC verification, and self-service workflows built to be intuitive for customers while maintaining strong internal control for compliance and operations.",
     },
-    {
-      heading: "Operational Demands",
-      content:
-        "Financial operations—including KYC, onboarding, credit checks, underwriting, servicing, and compliance reviews—span multiple systems and teams. When workflows depend on manual tasks or disconnected tools, turnaround time increases, visibility decreases, and risk exposure rises. We build structured digital ecosystems that streamline these operations end-to-end."
-    }
-  ],
 
-  card1: {
-    title: "Onboarding & Servicing Journeys",
-    desc:
-      "Account opening, KYC verification, and self-service workflows built to be intuitive for customers while maintaining strong internal control for compliance and operations."
+    card2: {
+      title: "Operations & Risk Workflows",
+      desc:
+        "Digitized case flow management with clear audit trails, structured approvals, and document controls that increase operational efficiency and reduce compliance gaps.",
+    },
+
+    sectionsAfterCards: [
+      {
+        heading: "Customer Journeys",
+        content:
+          "Onboarding is often a customer’s first real interaction with a financial institution. Slow or complex processes reduce conversion and increase support load. We design onboarding and servicing journeys that provide real-time status, automated notifications, and smooth digital guidance across every step of the customer lifecycle.",
+      },
+      {
+        heading: "Case Management & Exceptions",
+        content:
+          "Financial operations depend heavily on managing cases—credit processing, dispute resolution, fraud checks, and compliance exceptions. We build structured workflows that track cases from initiation to closure, ensure documentation integrity, and provide real-time visibility for operations leaders.",
+      },
+      {
+        heading: "Reporting & Regulatory Insight",
+        content:
+          "Accurate reporting is essential for leadership and mandatory for regulators. Our systems ensure data flows are captured correctly at the source so MIS, auditing, and regulatory reports are always consistent, complete, and dependable.",
+      },
+      {
+        heading: "Strategic Impact",
+        content:
+          "When customer journeys, operations, and risk workflows run on a unified digital foundation, financial institutions achieve faster processing times, greater customer trust, and stronger regulatory compliance while reducing operational overhead.",
+      },
+    ],
   },
-
-  card2: {
-    title: "Operations & Risk Workflows",
-    desc:
-      "Digitized case flow management with clear audit trails, structured approvals, and document controls that increase operational efficiency and reduce compliance gaps."
-  },
-
-  sectionsAfterCards: [
-    {
-      heading: "Customer Journeys",
-      content:
-        "Onboarding is often a customer’s first real interaction with a financial institution. Slow or complex processes reduce conversion and increase support load. We design onboarding and servicing journeys that provide real-time status, automated notifications, and smooth digital guidance across every step of the customer lifecycle."
-    },
-    {
-      heading: "Case Management & Exceptions",
-      content:
-        "Financial operations depend heavily on managing cases—credit processing, dispute resolution, fraud checks, and compliance exceptions. We build structured workflows that track cases from initiation to closure, ensure documentation integrity, and provide real-time visibility for operations leaders."
-    },
-    {
-      heading: "Reporting & Regulatory Insight",
-      content:
-        "Accurate reporting is essential for leadership and mandatory for regulators. Our systems ensure data flows are captured correctly at the source so MIS, auditing, and regulatory reports are always consistent, complete, and dependable."
-    },
-    {
-      heading: "Strategic Impact",
-      content:
-        "When customer journeys, operations, and risk workflows run on a unified digital foundation, financial institutions achieve faster processing times, greater customer trust, and stronger regulatory compliance while reducing operational overhead."
-    }
-  ]
-},
-
 };
+
+
+const brand = "#D63A1E";
 
 export default function IndustryDetail({ slug, onNavigate }: IndustryDetailProps) {
   const data = INDUSTRY_DATA[slug];
 
   if (!data) {
     return (
-      <Section className="text-center py-16">
-        <h1 className="text-3xl font-bold mb-3">Industry Not Found</h1>
+      <Section className="text-center py-10">
+        <h1 className="text-3xl font-semibold mb-2">Industry Not Found</h1>
         <Button variant="primary" onClick={() => onNavigate("industries")}>
           Back to Industries
         </Button>
@@ -362,7 +365,7 @@ export default function IndustryDetail({ slug, onNavigate }: IndustryDetailProps
   }
 
   return (
-    <div>
+    <div className="text-slate-900">
       {/* HERO */}
       <Hero
         title={data.title}
@@ -372,56 +375,133 @@ export default function IndustryDetail({ slug, onNavigate }: IndustryDetailProps
         backgroundImage={data.heroImage}
       />
 
-      {/* TOP SECTIONS */}
-      {data.sections.map((sec: any, i: number) => (
-        <Section key={i} className="pt-6 pb-1">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-[22px] font-semibold text-slate-900 mb-2">
-              {sec.heading}
-            </h2>
-            <p className="text-[17px] text-slate-700 leading-relaxed text-justify">
-              {sec.content}
-            </p>
+      {/* MAIN CONTENT – corporate style wrapper */}
+      <Section className="py-10 bg-slate-50 border-t border-slate-200">
+        <div className="max-w-5xl mx-auto space-y-10">
+          {/* INDUSTRY CONTEXT */}
+          <div className="grid md:grid-cols-3 gap-10">
+            <div className="md:col-span-2 space-y-6">
+              <p className="text-xs font-semibold tracking-[0.14em] uppercase text-slate-500">
+                Industry Context
+              </p>
+              {data.sections.map((sec: any, i: number) => (
+                <div key={i}>
+                  <h2 className="text-[21px] font-semibold text-slate-900 mb-1 tracking-tight">
+                    {sec.heading}
+                  </h2>
+                  <p className="text-[16px] text-slate-700 leading-[1.6] text-justify">
+                    {sec.content}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            {/* SIDE SUMMARY / FOCUS AREAS */}
+            <aside className="space-y-3 border-l border-slate-200 pl-5 hidden md:block">
+              <p className="text-xs font-semibold tracking-[0.16em] uppercase text-slate-500">
+                Focus Areas
+              </p>
+              <ul className="space-y-2 text-sm text-slate-600">
+                {data.sections
+                  .slice(0, 3)
+                  .map((sec: any, i: number) => (
+                    <li key={i} className="list-disc ml-4">
+                      {sec.heading}
+                    </li>
+                  ))}
+              </ul>
+            </aside>
           </div>
-        </Section>
-      ))}
 
-      {/* CARDS */}
-      <Section className="py-4">
-        <div className="grid md:grid-cols-2 gap-4 max-w-3xl mx-auto">
-          <Card className="p-5 border shadow-sm">
-            <h3 className="text-lg font-semibold mb-1">{data.card1.title}</h3>
-            <p className="text-[15px] text-slate-600 text-justify leading-relaxed">
-              {data.card1.desc}
-            </p>
-          </Card>
+          {/* HOW WE HELP – CARDS */}
+          <div className="space-y-4">
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <p className="text-xs font-semibold tracking-[0.14em] uppercase text-slate-500">
+                  Where We Help
+                </p>
+                <h3 className="text-[20px] font-semibold tracking-tight">
+                  Execution areas we typically own
+                </h3>
+              </div>
+            </div>
 
-          <Card className="p-5 border shadow-sm">
-            <h3 className="text-lg font-semibold mb-1">{data.card2.title}</h3>
-            <p className="text-[15px] text-slate-600 text-justify leading-relaxed">
-              {data.card2.desc}
+            <div className="grid md:grid-cols-2 gap-4">
+              <Card className="p-4 border border-slate-200 shadow-sm rounded-xl bg-white relative overflow-hidden">
+                <div
+                  className="absolute left-0 top-0 h-full w-[3px]"
+                  style={{ background: brand }}
+                />
+                <div className="pl-3">
+                  <h3 className="text-[18px] font-semibold mb-1 tracking-tight">
+                    {data.card1.title}
+                  </h3>
+                  <p className="text-[15px] text-slate-600 text-justify leading-[1.55]">
+                    {data.card1.desc}
+                  </p>
+                </div>
+              </Card>
+
+              <Card className="p-4 border border-slate-200 shadow-sm rounded-xl bg-white relative overflow-hidden">
+                <div
+                  className="absolute left-0 top-0 h-full w-[3px]"
+                  style={{ background: brand }}
+                />
+                <div className="pl-3">
+                  <h3 className="text-[18px] font-semibold mb-1 tracking-tight">
+                    {data.card2.title}
+                  </h3>
+                  <p className="text-[15px] text-slate-600 text-justify leading-[1.55]">
+                    {data.card2.desc}
+                  </p>
+                </div>
+              </Card>
+            </div>
+          </div>
+
+          {/* EXECUTION THEMES – TIMELINE STYLE */}
+          <div className="space-y-5">
+            <p className="text-xs font-semibold tracking-[0.14em] uppercase text-slate-500">
+              Execution Themes
             </p>
-          </Card>
+
+            <div className="relative">
+              {/* vertical line */}
+              <div className="hidden md:block absolute left-3 top-0 bottom-0 w-px bg-slate-200" />
+
+              <div className="space-y-7">
+                {data.sectionsAfterCards.map((sec: any, i: number) => (
+                  <div
+                    key={i}
+                    className="relative md:pl-8"
+                  >
+                    {/* dot */}
+                    <div className="hidden md:block absolute left-1 top-2 h-3 w-3 rounded-full border border-white shadow-sm"
+                         style={{ background: brand }} />
+                    <h2 className="text-[20px] font-semibold text-slate-900 mb-1 tracking-tight">
+                      {sec.heading}
+                    </h2>
+                    <p className="text-[16px] text-slate-700 leading-[1.6] text-justify">
+                      {sec.content}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </Section>
 
-      {/* AFTER-CARDS SECTIONS */}
-      {data.sectionsAfterCards.map((sec: any, i: number) => (
-        <Section key={i} className="pt-5 pb-2">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-[22px] font-semibold text-slate-900 mb-2">
-              {sec.heading}
-            </h2>
-            <p className="text-[17px] text-slate-700 leading-relaxed text-justify">
-              {sec.content}
-            </p>
-          </div>
-        </Section>
-      ))}
-
       {/* CTA */}
-      <Section className="text-center py-10">
-        <Button variant="primary" size="lg" onClick={() => onNavigate("contact")}>
+      <Section className="text-center py-8 bg-white border-t border-slate-200">
+        <p className="text-sm text-slate-600 mb-2">
+          Looking at similar initiatives in your {data.title.toLowerCase()} environment?
+        </p>
+        <Button
+          variant="primary"
+          size="lg"
+          onClick={() => onNavigate("contact")}
+        >
           Discuss Your {data.title} Needs
         </Button>
       </Section>

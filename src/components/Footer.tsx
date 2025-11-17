@@ -17,8 +17,8 @@ export default function Footer({ onNavigate }: FooterProps) {
   const year = new Date().getFullYear();
 
   const company = [
+    { label: "Why Keptel", page: "why-keptel" },
     { label: "About Us", page: "about" },
-    { label: "Careers", page: "careers" },
     { label: "Contact", page: "contact" },
   ];
 

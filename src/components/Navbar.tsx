@@ -21,14 +21,15 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
   // ----------------------------
   // SERVICE LINKS
   // ----------------------------
-  const serviceLinks = [
-    { name: <b>Overview</b>, path: "services" },
-    { name: "IT Services", path: "service:it-services" },
-    { name: "Staffing Services", path: "service:staffing-services" },
-    { name: "Workforce Solutions", path: "service:workforce-solutions" },
-    { name: "Technology Consulting", path: "service:technology-consulting" },
-    { name: "Software Training", path: "service:software-training" },
-  ];
+const serviceLinks = [
+  { name: <b>Overview</b>, path: "services" },
+  { name: "Talent Intelligence", path: "service:talent-intelligence" },
+  { name: "Talent Acquisition", path: "service:talent-acquisition" },
+  { name: "Executive Search", path: "service:executive-search" },
+  { name: "Recruitment Process Outsourcing", path: "service:rpo" },
+  { name: "Global PEO Services", path: "service:global-peo" }
+];
+
 
   // ----------------------------
   // INDUSTRY LINKS
