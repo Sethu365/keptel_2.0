@@ -56,18 +56,19 @@ export default function Home({ onNavigate }: HomeProps) {
   return (
     <div className="bg-slate-50">
       {/* ============================ HERO (UNCHANGED) ============================ */}
-      <Hero
-        title="Transform Your Enterprise for the Digital Age"
-        subtitle="We partner with global leaders to drive innovation, accelerate growth, and create sustainable competitive advantages through technology and strategic insight."
-        ctaPrimary="Get Started"
-        ctaSecondary="Learn More"
-        onPrimaryClick={() => onNavigate("contact")}
-        onSecondaryClick={() => onNavigate("services")}
-        backgroundImage="https://images.pexels.com/photos/380769/pexels-photo-380769.jpeg?auto=compress&cs=tinysrgb&w=1920"
-        backgroundVideoSrc="../public/assets/Video.mp4"
-        backgroundVideoPoster="https://images.pexels.com/photos/380769/pexels-photo-380769.jpeg?auto=compress&cs=tinysrgb&w=1920"
-        videoOnMobile={true}
-      />
+  <Hero
+  title="Transform Your Enterprise for the Digital Age"
+  subtitle="We partner with global leaders to drive innovation, accelerate growth, and create sustainable competitive advantages through technology and strategic insight."
+  ctaPrimary="Get Started"
+  ctaSecondary="Learn More"
+  onPrimaryClick={() => onNavigate("contact")}
+  onSecondaryClick={() => onNavigate("services")}
+  backgroundImage="" // ⛔ remove image completely
+  backgroundVideoSrc="/assets/Video.mp4" // ✅ correct video path
+  backgroundVideoPoster="" // optional: empty or your poster
+  videoOnMobile={true}
+/>
+
 
       {/* ===== FONT SCALE WRAPPER (applies to everything below, NOT hero) ===== */}
       <div

@@ -2,7 +2,7 @@ import { useEffect, useState, useMemo } from "react";
 import { motion } from "framer-motion";
 
 type SplashProps = {
-  minDuration?: number;
+  minDuration?: number; // extra time AFTER animation finishes
   logoSrc?: string;
   onFinish?: () => void;
   /** "out" (shrink), "in" (grow), or "none" */
@@ -10,7 +10,7 @@ type SplashProps = {
 };
 
 export default function SplashScreen({
-  minDuration = 5000, // total ~5s
+  minDuration = 2000, // ⏱️ hold logo for 5s AFTER animation
   logoSrc = "/assets/logo.png",
   onFinish,
   endZoom = "out",
@@ -18,8 +18,13 @@ export default function SplashScreen({
   const [visible, setVisible] = useState(true);
   const [exitNow, setExitNow] = useState(false);
 
-  // Timing logic
+  // how long the logo animation itself runs
+  const LOGO_ANIMATION_MS = 5000; // 5 seconds
+
+  // Timing logic: animation (5s) + hold (minDuration, default 5s) → then fade out (1.3s)
   useEffect(() => {
+    const totalVisible = LOGO_ANIMATION_MS + minDuration;
+
     const t1 = setTimeout(() => {
       setExitNow(true);
       const t2 = setTimeout(() => {
@@ -27,7 +32,8 @@ export default function SplashScreen({
         onFinish?.();
       }, 1300); // 🕊️ slow fade-out (1.3s)
       return () => clearTimeout(t2);
-    }, minDuration);
+    }, totalVisible);
+
     return () => clearTimeout(t1);
   }, [minDuration, onFinish]);
 
@@ -104,8 +110,8 @@ export default function SplashScreen({
             filter: ["blur(3px)", "blur(0px)", "blur(0px)", "blur(0px)"],
           }}
           transition={{
-            duration: 5, // synced to total timeline
-            times: [0, 0.4, 0.6, 1], // animate with ring, then hold
+            duration: LOGO_ANIMATION_MS / 1000, // 5s animation
+            times: [0, 0.4, 0.6, 1],
             ease: "easeInOut",
           }}
         />
