@@ -18,7 +18,7 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
     { name: 'Industries', path: 'industries' },
     { name: "Why Keptel", path: "why_keptel" },
     { name: 'About', path: 'about' },
-    { name: 'Careers', path: 'careers' },
+    // { name: 'Careers', path: 'careers' },
   ];
 
   useEffect(() => {

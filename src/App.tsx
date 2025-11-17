@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 import Services from "./pages/Services";
 import About from "./pages/About";
 import Industries from "./pages/Industries";
-import Careers from "./pages/Careers";
+// import Careers from "./pages/Careers";
 import Contact from "./pages/Contact";
 import IndustryDetail from "./pages/IndustryDetail";
 import SplashScreen from "./components/SplashScreen";
@@ -18,7 +18,7 @@ type PageKey =
   | "about"
   | "industries"
   | "why_keptel"
-  | "careers"
+  // | "careers"
   | "contact"
   | "industryDetail";
 
@@ -50,7 +50,7 @@ export default function App() {
       about: `About Us — ${base}`,
       industries: `Industries — ${base}`,
       why_keptel: `Why Keptel — ${base}`,
-      careers: `Careers — ${base}`,
+      // careers: `Careers — ${base}`,
       contact: `Contact Us — ${base}`,
     };
 
@@ -86,8 +86,8 @@ export default function App() {
         return <Industries onNavigate={handleNavigate} />;
       case "why_keptel":
         return <WhyKeptel onNavigate={handleNavigate} />;
-      case "careers":
-        return <Careers onNavigate={handleNavigate} />;
+      // case "careers":
+      //   return <Careers onNavigate={handleNavigate} />;
       case "contact":
         return <Contact onNavigate={handleNavigate} />;
       case "industryDetail":
