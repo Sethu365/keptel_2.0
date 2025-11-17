@@ -11,6 +11,7 @@ import IndustryDetail from "./pages/IndustryDetail";
 import SplashScreen from "./components/SplashScreen";
 import WhyKeptel from "./pages/WhyKeptel";
 import { useScrollToTop } from "./hooks/useScrollToTop";
+import ServiceDetail from "./pages/ServiceDetail";
 
 type PageKey =
   | "home"
@@ -20,7 +21,8 @@ type PageKey =
   | "why_keptel"
   // | "careers"
   | "contact"
-  | "industryDetail";
+  | "industryDetail"
+  | "serviceDetail";
 
 function formatSlugToTitle(slug: string) {
   return slug
@@ -32,19 +34,26 @@ function formatSlugToTitle(slug: string) {
 export default function App() {
   const [currentPage, setCurrentPage] = useState<PageKey>("home");
   const [selectedIndustrySlug, setSelectedIndustrySlug] = useState<string | null>(null);
+  const [selectedServiceSlug, setSelectedServiceSlug] = useState<string | null>(null);
   const [splashDone, setSplashDone] = useState(false);
 
-  // key for scroll hook (include slug so details pages trigger scroll top)
-  const scrollKey = useMemo(
-    () => (currentPage === "industryDetail" ? `industry:${selectedIndustrySlug}` : currentPage),
-    [currentPage, selectedIndustrySlug]
-  );
+  // Scroll to top handling (supports industry + service detail pages)
+  const scrollKey = useMemo(() => {
+    if (currentPage === "industryDetail" && selectedIndustrySlug) {
+      return `industry:${selectedIndustrySlug}`;
+    }
+    if (currentPage === "serviceDetail" && selectedServiceSlug) {
+      return `service:${selectedServiceSlug}`;
+    }
+    return currentPage;
+  }, [currentPage, selectedIndustrySlug, selectedServiceSlug]);
+
   useScrollToTop(scrollKey);
 
-  // Set document title
+  // Document title handler
   useEffect(() => {
     const base = "Keptel Analytics Space";
-    const titles: Record<Exclude<PageKey, "industryDetail">, string> = {
+    const titles: Record<Exclude<PageKey, "industryDetail" | "serviceDetail">, string> = {
       home: `${base} — Enterprise Technology Solutions`,
       services: `Services — ${base}`,
       about: `About Us — ${base}`,
@@ -56,19 +65,36 @@ export default function App() {
 
     if (currentPage === "industryDetail" && selectedIndustrySlug) {
       document.title = `${formatSlugToTitle(selectedIndustrySlug)} — ${base}`;
-    } else {
-      document.title = titles[(currentPage as Exclude<PageKey, "industryDetail">)] || base;
+      return;
     }
-  }, [currentPage, selectedIndustrySlug]);
+
+    if (currentPage === "serviceDetail" && selectedServiceSlug) {
+      document.title = `${formatSlugToTitle(selectedServiceSlug)} — ${base}`;
+      return;
+    }
+
+    document.title = titles[currentPage as Exclude<PageKey, "industryDetail" | "serviceDetail">] || base;
+  }, [currentPage, selectedIndustrySlug, selectedServiceSlug]);
 
   // Navigation handler
   const handleNavigate = (page: string) => {
+    // Industry dynamic navigation
     if (page.startsWith("industry:")) {
       const slug = page.split(":")[1] || "";
       setSelectedIndustrySlug(slug);
       setCurrentPage("industryDetail");
       return;
     }
+
+    // Service dynamic navigation
+    if (page.startsWith("service:")) {
+      const slug = page.split(":")[1] || "";
+      setSelectedServiceSlug(slug);
+      setCurrentPage("serviceDetail");
+      return;
+    }
+
+    // Normal pages
     const key = (page as PageKey) || "home";
     setCurrentPage(key);
   };
@@ -78,24 +104,37 @@ export default function App() {
     switch (currentPage) {
       case "home":
         return <Home onNavigate={handleNavigate} />;
+
       case "services":
         return <Services onNavigate={handleNavigate} />;
+
       case "about":
         return <About onNavigate={handleNavigate} />;
+
       case "industries":
         return <Industries onNavigate={handleNavigate} />;
+
       case "why_keptel":
         return <WhyKeptel onNavigate={handleNavigate} />;
       // case "careers":
       //   return <Careers onNavigate={handleNavigate} />;
       case "contact":
         return <Contact onNavigate={handleNavigate} />;
+
       case "industryDetail":
         return selectedIndustrySlug ? (
           <IndustryDetail slug={selectedIndustrySlug} onNavigate={handleNavigate} />
         ) : (
           <Industries onNavigate={handleNavigate} />
         );
+
+      case "serviceDetail":
+        return selectedServiceSlug ? (
+          <ServiceDetail slug={selectedServiceSlug} onNavigate={handleNavigate} />
+        ) : (
+          <Services onNavigate={handleNavigate} />
+        );
+
       default:
         return <Home onNavigate={handleNavigate} />;
     }
@@ -116,8 +155,19 @@ export default function App() {
           splashDone ? "opacity-100" : "opacity-0"
         }`}
       >
-        <Navbar currentPage={currentPage === "industryDetail" ? "industries" : currentPage} onNavigate={handleNavigate} />
+        <Navbar
+          currentPage={
+            currentPage === "industryDetail"
+              ? "industries"
+              : currentPage === "serviceDetail"
+              ? "services"
+              : currentPage
+          }
+          onNavigate={handleNavigate}
+        />
+
         <main>{renderPage()}</main>
+
         <Footer onNavigate={handleNavigate} />
       </div>
     </>
