@@ -331,7 +331,8 @@ const INDUSTRY_DATA: any = {
       {
         heading: "Case Management & Exceptions",
         content:
-          "Financial operations depend heavily on managing cases—credit processing, dispute resolution, fraud checks, and compliance exceptions. We build structured workflows that track cases from initiation to closure, ensure documentation integrity, and provide real-time visibility for operations leaders.",
+          
+"Financial operations depend heavily on managing cases—credit processing, dispute resolution, fraud checks, and compliance exceptions. We build structured workflows that track cases from initiation to closure, ensure documentation integrity, and provide real-time visibility for operations leaders.",
       },
       {
         heading: "Reporting & Regulatory Insight",
@@ -346,7 +347,6 @@ const INDUSTRY_DATA: any = {
     ],
   },
 };
-
 
 const brand = "#D63A1E";
 
@@ -375,110 +375,29 @@ export default function IndustryDetail({ slug, onNavigate }: IndustryDetailProps
         backgroundImage={data.heroImage}
       />
 
-      {/* MAIN CONTENT – corporate style wrapper */}
-      <Section className="py-10 bg-slate-50 border-t border-slate-200">
-        <div className="max-w-5xl mx-auto space-y-10">
-          {/* INDUSTRY CONTEXT */}
-          <div className="grid md:grid-cols-3 gap-10">
-            <div className="md:col-span-2 space-y-6">
-              <p className="text-xs font-semibold tracking-[0.14em] uppercase text-slate-500">
-                Industry Context
-              </p>
-              {data.sections.map((sec: any, i: number) => (
-                <div key={i}>
-                  <h2 className="text-[21px] font-semibold text-slate-900 mb-1 tracking-tight">
-                    {sec.heading}
-                  </h2>
-                  <p className="text-[16px] text-slate-700 leading-[1.6] text-justify">
-                    {sec.content}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            {/* SIDE SUMMARY / FOCUS AREAS */}
-            <aside className="space-y-3 border-l border-slate-200 pl-5 hidden md:block">
-              <p className="text-xs font-semibold tracking-[0.16em] uppercase text-slate-500">
-                Focus Areas
-              </p>
-              <ul className="space-y-2 text-sm text-slate-600">
-                {data.sections
-                  .slice(0, 3)
-                  .map((sec: any, i: number) => (
-                    <li key={i} className="list-disc ml-4">
-                      {sec.heading}
-                    </li>
-                  ))}
-              </ul>
-            </aside>
-          </div>
-
-          {/* HOW WE HELP – CARDS */}
-          <div className="space-y-4">
-            <div className="flex items-center justify-between gap-4">
-              <div>
+      {/* GLOBAL FONT SCALE WRAPPER */}
+      <div
+        className="
+        [&_h1]:text-[34px]
+        [&_h2]:text-[26px] md:[&_h2]:text-[28px]
+        [&_h3]:text-[20px] md:[&_h3]:text-[22px]
+        [&_p]:text-[17px] md:[&_p]:text-[18px]
+        [&_li]:text-[16px] md:[&_li]:text-[17px]
+        [&_span]:text-[15px]
+      "
+      >
+        {/* MAIN CONTENT */}
+        <Section className="py-10 bg-slate-50 border-t border-slate-200">
+          <div className="max-w-5xl mx-auto space-y-10">
+            {/* INDUSTRY CONTEXT */}
+            <div className="grid md:grid-cols-3 gap-10">
+              <div className="md:col-span-2 space-y-6">
                 <p className="text-xs font-semibold tracking-[0.14em] uppercase text-slate-500">
-                  Where We Help
+                  Industry Context
                 </p>
-                <h3 className="text-[20px] font-semibold tracking-tight">
-                  Execution areas we typically own
-                </h3>
-              </div>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-4">
-              <Card className="p-4 border border-slate-200 shadow-sm rounded-xl bg-white relative overflow-hidden">
-                <div
-                  className="absolute left-0 top-0 h-full w-[3px]"
-                  style={{ background: brand }}
-                />
-                <div className="pl-3">
-                  <h3 className="text-[18px] font-semibold mb-1 tracking-tight">
-                    {data.card1.title}
-                  </h3>
-                  <p className="text-[15px] text-slate-600 text-justify leading-[1.55]">
-                    {data.card1.desc}
-                  </p>
-                </div>
-              </Card>
-
-              <Card className="p-4 border border-slate-200 shadow-sm rounded-xl bg-white relative overflow-hidden">
-                <div
-                  className="absolute left-0 top-0 h-full w-[3px]"
-                  style={{ background: brand }}
-                />
-                <div className="pl-3">
-                  <h3 className="text-[18px] font-semibold mb-1 tracking-tight">
-                    {data.card2.title}
-                  </h3>
-                  <p className="text-[15px] text-slate-600 text-justify leading-[1.55]">
-                    {data.card2.desc}
-                  </p>
-                </div>
-              </Card>
-            </div>
-          </div>
-
-          {/* EXECUTION THEMES – TIMELINE STYLE */}
-          <div className="space-y-5">
-            <p className="text-xs font-semibold tracking-[0.14em] uppercase text-slate-500">
-              Execution Themes
-            </p>
-
-            <div className="relative">
-              {/* vertical line */}
-              <div className="hidden md:block absolute left-3 top-0 bottom-0 w-px bg-slate-200" />
-
-              <div className="space-y-7">
-                {data.sectionsAfterCards.map((sec: any, i: number) => (
-                  <div
-                    key={i}
-                    className="relative md:pl-8"
-                  >
-                    {/* dot */}
-                    <div className="hidden md:block absolute left-1 top-2 h-3 w-3 rounded-full border border-white shadow-sm"
-                         style={{ background: brand }} />
-                    <h2 className="text-[20px] font-semibold text-slate-900 mb-1 tracking-tight">
+                {data.sections.map((sec: any, i: number) => (
+                  <div key={i}>
+                    <h2 className="text-[21px] font-semibold text-slate-900 mb-1 tracking-tight">
                       {sec.heading}
                     </h2>
                     <p className="text-[16px] text-slate-700 leading-[1.6] text-justify">
@@ -487,24 +406,110 @@ export default function IndustryDetail({ slug, onNavigate }: IndustryDetailProps
                   </div>
                 ))}
               </div>
+
+              {/* SIDE SUMMARY / FOCUS AREAS */}
+              <aside className="space-y-3 border-l border-slate-200 pl-5 hidden md:block">
+                <p className="text-xs font-semibold tracking-[0.16em] uppercase text-slate-500">
+                  Focus Areas
+                </p>
+                <ul className="space-y-2 text-sm text-slate-600">
+                  {data.sections.slice(0, 3).map((sec: any, i: number) => (
+                    <li key={i} className="list-disc ml-4">
+                      {sec.heading}
+                    </li>
+                  ))}
+                </ul>
+              </aside>
+            </div>
+
+            {/* HOW WE HELP – CARDS */}
+            <div className="space-y-4">
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <p className="text-xs font-semibold tracking-[0.14em] uppercase text-slate-500">
+                    Where We Help
+                  </p>
+                  <h3 className="text-[20px] font-semibold tracking-tight">
+                    Execution areas we typically own
+                  </h3>
+                </div>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-4">
+                <Card className="p-4 border border-slate-200 shadow-sm rounded-xl bg-white relative overflow-hidden">
+                  <div
+                    className="absolute left-0 top-0 h-full w-[3px]"
+                    style={{ background: brand }}
+                  />
+                  <div className="pl-3">
+                    <h3 className="text-[18px] font-semibold mb-1 tracking-tight">
+                      {data.card1.title}
+                    </h3>
+                    <p className="text-[15px] text-slate-600 text-justify leading-[1.55]">
+                      {data.card1.desc}
+                    </p>
+                  </div>
+                </Card>
+
+                <Card className="p-4 border border-slate-200 shadow-sm rounded-xl bg-white relative overflow-hidden">
+                  <div
+                    className="absolute left-0 top-0 h-full w-[3px]"
+                    style={{ background: brand }}
+                  />
+                  <div className="pl-3">
+                    <h3 className="text-[18px] font-semibold mb-1 tracking-tight">
+                      {data.card2.title}
+                    </h3>
+                    <p className="text-[15px] text-slate-600 text-justify leading-[1.55]">
+                      {data.card2.desc}
+                    </p>
+                  </div>
+                </Card>
+              </div>
+            </div>
+
+            {/* EXECUTION THEMES – TIMELINE */}
+            <div className="space-y-5">
+              <p className="text-xs font-semibold tracking-[0.14em] uppercase text-slate-500">
+                Execution Themes
+              </p>
+
+              <div className="relative">
+                {/* vertical line */}
+                <div className="hidden md:block absolute left-3 top-0 bottom-0 w-px bg-slate-200" />
+
+                <div className="space-y-7">
+                  {data.sectionsAfterCards.map((sec: any, i: number) => (
+                    <div key={i} className="relative md:pl-8">
+                      {/* dot */}
+                      <div
+                        className="hidden md:block absolute left-1 top-2 h-3 w-3 rounded-full border border-white shadow-sm"
+                        style={{ background: brand }}
+                      />
+                      <h2 className="text-[20px] font-semibold text-slate-900 mb-1 tracking-tight">
+                        {sec.heading}
+                      </h2>
+                      <p className="text-[16px] text-slate-700 leading-[1.6] text-justify">
+                        {sec.content}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </Section>
+        </Section>
 
-      {/* CTA */}
-      <Section className="text-center py-8 bg-white border-t border-slate-200">
-        <p className="text-sm text-slate-600 mb-2">
-          Looking at similar initiatives in your {data.title.toLowerCase()} environment?
-        </p>
-        <Button
-          variant="primary"
-          size="lg"
-          onClick={() => onNavigate("contact")}
-        >
-          Discuss Your {data.title} Needs
-        </Button>
-      </Section>
+        {/* CTA */}
+        <Section className="text-center py-8 bg-white border-t border-slate-200">
+          <p className="text-sm text-slate-600 mb-2">
+            Looking at similar initiatives in your {data.title.toLowerCase()} environment?
+          </p>
+          <Button variant="primary" size="lg" onClick={() => onNavigate("contact")}>
+            Discuss Your {data.title} Needs
+          </Button>
+        </Section>
+      </div>
     </div>
   );
 }
